@@ -1,3 +1,4 @@
+Acebott.Trace_Sensor_init(AnalogReadPin.P0, AnalogReadPin.P2, AnalogReadPin.P1)
 let Chosen = 0
 let Line = 0
 let Ultra = 0
@@ -14,6 +15,13 @@ while (Chosen == 0) {
     }
 }
 basic.forever(function () {
+    basic.showLeds(`
+        . # # # .
+        # . . . #
+        . # # # .
+        # . . . #
+        . . # . .
+        `)
     if (Ultra == 1) {
         if (Acebott.UltrasonicDistance(DigitalPin.P15, DigitalWritePin.P14, DistanceUnit.CM) < 25) {
             basic.showIcon(IconNames.No)
@@ -57,7 +65,7 @@ basic.forever(function () {
         Line = 0
         Ultra = 0
         Acebott.stopcar()
-        while (Chosen == 0) {
+        while (0 == 0) {
             Acebott.colorLight(Acebott.RGBLights.ALL, 0x7f00ff)
             if (input.buttonIsPressed(Button.A)) {
                 Chosen = 1
@@ -68,5 +76,11 @@ basic.forever(function () {
                 Line = 1
             }
         }
+    }
+})
+basic.forever(function () {
+    Acebott.Trace_Sensor_init(AnalogReadPin.P0, AnalogReadPin.P1, AnalogReadPin.P2)
+    if (Acebott.Trace_Sensor_getValue(Trace_Sensor_Index.R) < 900) {
+    	
     }
 })
